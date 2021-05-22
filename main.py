@@ -74,7 +74,7 @@ def login(user: schemas.UserCreate, db: Session = Depends(get_db)):
     if found_user is None:
         raise HTTPException(detail="Invalid Username or Password", status_code=400)
 
-    if found_user.password != user.password and found_user.user_type == user.user_type:
+    if found_user.password != user.password:
         raise HTTPException(detail="Invalid Username or Password", status_code=400)
 
     token = db.query(models.UserToken).filter(models.UserToken.user_id == found_user.id).first()
