@@ -58,6 +58,17 @@ class UserProfile(Base):
     user = relationship("User")
 
 
+class OrgProfile(Base):
+    __tablename__ = "org_profiles"
+
+    id = Column(Integer, primary_key=True)
+    full_name = Column(String)
+    about = Column(String)
+
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship("User")
+
+
 class Category(Base):
     __tablename__ = "categories"
 

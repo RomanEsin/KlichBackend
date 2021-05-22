@@ -31,3 +31,7 @@ class UserProfile(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class OrgProfile(UserProfile):
+    pass
