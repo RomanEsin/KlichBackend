@@ -30,10 +30,10 @@ class User(Base):
     username = Column(String, unique=True)
     password = Column(String)
     user_type = Column(Integer)
-    categories = relationship(
-        "Category",
-        secondary=association_table,
-        back_populates="users")
+    # categories = relationship(
+    #     "Category",
+    #     secondary=association_table,
+    #     back_populates="users")
 
 
 class UserToken(Base):
@@ -64,7 +64,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
 
-    users = relationship(
-        "User",
-        secondary=association_table,
-        back_populates="categories")
+    # users = relationship(
+    #     "User",
+    #     secondary=association_table,
+    #     back_populates="categories")
