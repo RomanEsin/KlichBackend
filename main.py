@@ -138,7 +138,7 @@ def my_categories(user_token: str, db: Session = Depends(get_db)):
         raise HTTPException(detail="Invalid Username or Password", status_code=400)
 
     user = user_token.user
-    cats = []
+    cats = db.query(models.Category)
 
     for category in user.categories:
         cats.append(db.query(models.Category).filter(models.Category.id == category).first())

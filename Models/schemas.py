@@ -39,6 +39,7 @@ class OrgProfile(UserProfile):
 
 
 class Category(BaseModel):
+    id: int
     name: Optional[str]
 
     class Config:
