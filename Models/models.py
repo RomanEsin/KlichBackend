@@ -16,11 +16,11 @@ from sqlalchemy.orm import relationship
 from Database.database import Base
 
 
-association_table = Table(
-    'users_categories', Base.metadata,
-    Column('user_id', Integer, ForeignKey('users.id')),
-    Column('category_id', Integer, ForeignKey('categories.id'))
-)
+# association_table = Table(
+#     'users_categories', Base.metadata,
+#     Column('user_id', Integer, ForeignKey('users.id')),
+#     Column('category_id', Integer, ForeignKey('categories.id'))
+# )
 
 
 class User(Base):
