@@ -16,7 +16,7 @@ origins = [
     "*"
 ]
 
-app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
+app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
