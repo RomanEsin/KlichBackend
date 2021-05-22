@@ -40,3 +40,6 @@ class OrgProfile(UserProfile):
 
 class Category(BaseModel):
     name: Optional[str]
+
+    class Config:
+        orm_mode = True
