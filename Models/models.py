@@ -53,6 +53,7 @@ class UserProfile(Base):
     id = Column(Integer, primary_key=True)
     full_name = Column(String)
     about = Column(String)
+    username = Column(String)
 
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User")
@@ -64,6 +65,7 @@ class OrgProfile(Base):
     id = Column(Integer, primary_key=True)
     full_name = Column(String)
     about = Column(String)
+    username = Column(String)
 
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User")

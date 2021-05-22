@@ -64,7 +64,8 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     )
 
     user_profile = models.UserProfile(
-        user_id=user_model.id
+        user_id=user_model.id,
+        username=user_model.username
     )
 
     db.add(user_profile)
@@ -99,6 +100,7 @@ def get_user_profile(user_token: str, db: Session = Depends(get_db)):
         user_profile = db.query(models.UserProfile).filter(models.UserProfile.user_id == user_token.user_id).first()
     else:
         user_profile = db.query(models.OrgProfile).filter(models.OrgProfile.user_id == user_token.user_id).first()
+
     return user_profile
 
 
