@@ -1,6 +1,6 @@
 import secrets
 
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from typing import List, Optional
 
 from sqlalchemy.orm import Session
@@ -46,17 +46,23 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
         password=user.password
     )
 
-    user_token = models.UserToken(
-        token=secrets.token_hex(16)
-    )
-
-    db.add(user_token)
     db.add(user_model)
 
     try:
         db.commit()
+        db.flush()
     except Exception:
-        return {"error": "yes"}
+        raise HTTPException(detail="Account already exists", status_code=400)
+
+    db.refresh(user_model)
+
+    user_token = models.UserToken(
+        token=secrets.token_hex(16),
+        user_id=user_model.id
+    )
+
+    db.add(user_token)
+    db.commit()
 
     return user_token
 
@@ -65,10 +71,10 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
 def login(user: schemas.UserCreate, db: Session = Depends(get_db)):
     found_user = db.query(models.User).filter(models.User.username == user.username).first()
     if found_user is None:
-        return {"error": "yes"}
+        raise HTTPException(detail="Invalid Username or Password", status_code=400)
 
     if found_user.password != user.password:
-        return {"error": "yes"}
+        raise HTTPException(detail="Invalid Username or Password", status_code=400)
 
     token = db.query(models.UserToken).filter(models.UserToken.user_id == found_user.id).first()
 
