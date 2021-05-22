@@ -9,3 +9,4 @@ typing-extensions==3.10.0.0
 uvicorn==0.13.4
 psycopg2-binary==2.8.6
 gunicorn==20.1.0
+uvloop==0.15.2
