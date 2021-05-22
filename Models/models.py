@@ -24,6 +24,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String, unique=True)
     password = Column(String)
+    user_type = Column(Integer)
 
 
 class UserToken(Base):

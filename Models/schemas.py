@@ -6,6 +6,7 @@ from pydantic import BaseModel, validator
 class UserCreate(BaseModel):
     username: str
     password: str
+    user_type: int
 
     class Config:
         orm_mode = True
