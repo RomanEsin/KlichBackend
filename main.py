@@ -63,6 +63,11 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
         user_type=user_model.user_type
     )
 
+    user_profile = models.UserProfile(
+        user_id=user_model.id
+    )
+
+    db.add(user_profile)
     db.add(user_token)
     db.commit()
 
@@ -81,3 +86,7 @@ def login(user: schemas.UserCreate, db: Session = Depends(get_db)):
     token = db.query(models.UserToken).filter(models.UserToken.user_id == found_user.id).first()
 
     return token
+
+
+@app.post("/user/edit")
+def update_user(user: schemas.UserProfile)
