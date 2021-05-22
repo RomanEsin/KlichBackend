@@ -12,7 +12,7 @@ from sqlalchemy import (
 )
 
 from sqlalchemy.orm import relationship
-
+from sqlalchemy.dialects import postgresql
 from Database.database import Base
 
 
@@ -30,6 +30,7 @@ class User(Base):
     username = Column(String, unique=True)
     password = Column(String)
     user_type = Column(Integer)
+    categories = Column(postgresql.ARRAY(Integer), default=[])
     # categories = relationship(
     #     "Category",
     #     secondary=association_table,

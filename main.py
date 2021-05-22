@@ -11,7 +11,6 @@ from Models import models, schemas
 
 models.Base.metadata.create_all(bind=engine)
 
-
 origins = [
     "*"
 ]
@@ -124,3 +123,24 @@ def update_user(user_token: str, user_profile_edited: schemas.UserProfile, db: S
 
     db.commit()
     return user_profile
+
+
+# @app.get("/categories/available")
+# def available_categories(user_token: str, db: Session = Depends(get_db)):
+#     # categories = db.query(models.Category).filter(mode)
+
+
+@app.get("/categories/my", response_model=List[schemas.Category])
+def my_categories(user_token: str, db: Session = Depends(get_db)):
+    user_token: models.UserToken = db.query(models.UserToken).filter(models.UserToken.token == user_token).first()
+
+    if user_token is None:
+        raise HTTPException(detail="Invalid Username or Password", status_code=400)
+
+    user = user_token.user
+    cats = []
+
+    for category in user.categories:
+        cats.append(db.query(models.Category).filter(models.Category.id == category).first())
+
+    return cats

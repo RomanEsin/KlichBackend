@@ -36,3 +36,7 @@ class UserProfile(BaseModel):
 
 class OrgProfile(UserProfile):
     pass
+
+
+class Category(BaseModel):
+    name: Optional[str]
