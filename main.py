@@ -121,4 +121,6 @@ def update_user(user_token: str, user_profile_edited: schemas.UserProfile, db: S
 
         user_profile.full_name = user_profile_edited.full_name
         user_profile.about = user_profile_edited.about
+
+    db.commit()
     return user_profile
