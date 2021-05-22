@@ -59,7 +59,8 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
     user_token = models.UserToken(
         token=secrets.token_hex(16),
-        user_id=user_model.id
+        user_id=user_model.id,
+        user_type=user_model.user_type
     )
 
     db.add(user_token)

@@ -18,6 +18,7 @@ class User(UserCreate):
 
 class UserToken(BaseModel):
     token: str
+    user_type: int
 
     class Config:
         orm_mode = True
