@@ -27,5 +27,7 @@ class UserToken(BaseModel):
 class UserProfile(BaseModel):
     full_name: str
     about: str
-
     user_id: int
+
+    class Config:
+        orm_mode = True

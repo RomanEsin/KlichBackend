@@ -89,4 +89,15 @@ def login(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 
 @app.post("/user/edit")
-def update_user(user: schemas.UserProfile)
+def update_user(user_token: str, user_profile_edited: schemas.UserProfile, db: Session = Depends(get_db)):
+    user_token = db.query(models.UserToken).filter(models.UserToken.token == user_token).first()
+
+    if user_token is None:
+        raise HTTPException(detail="Invalid Username or Password", status_code=400)
+
+    user_profile = db.query(models.UserProfile).filter(models.UserProfile.user_id == user_token.user_id).first()
+
+    user_profile.full_name = user_profile_edited.full_name
+    user_profile.about = user_profile_edited.about
+
+    return user_profile
