@@ -25,8 +25,8 @@ class UserToken(BaseModel):
 
 
 class UserProfile(BaseModel):
-    full_name: str
-    about: str
+    full_name: Optional[str]
+    about: Optional[str]
     user_id: int
 
     class Config:
